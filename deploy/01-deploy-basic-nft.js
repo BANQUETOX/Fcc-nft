@@ -1,24 +1,27 @@
-const {network, getNamedAccounts, deployments} = require("hardhat")
-const {developmentChains} = require("../herlper-hardhat-config")
-const {verify} = require("../utils/verify")
+const { network, getNamedAccounts, deployments } = require("hardhat")
+const { developmentChains } = require("../herlper-hardhat-config")
+const { verify } = require("../utils/verify")
 
-module.exports = async function ({getNamedAccounts,deployments}){
-    const {deploy,log} = deployments
-    const {deployer} = await getNamedAccounts()
+module.exports = async function ({ getNamedAccounts, deployments }) {
+    const { deploy, log } = deployments
+    const { deployer } = await getNamedAccounts()
 
     const args = []
-    const basicNft = await deploy("BasicNft",{
+    const basicNft = await deploy("BasicNft", {
         from: deployer,
-        args:args,
+        args: args,
         log: true,
         waitConfirmations: network.config.blockConfirmations || 1,
     })
 
-    if(!developmentChains.includes(network.name)&& process.env.ETHERSCAN_API_KEY){
+    if (
+        !developmentChains.includes(network.name) &&
+        process.env.ETHERSCAN_API_KEY
+    ) {
         log("Verifying...")
         await verify(basicNft, args)
     }
-
+    console.log("deployed!!!")
 }
 
-module.exports.tags = ["basicnft","all"]
+module.exports.tags = ["basicnft", "all"]
