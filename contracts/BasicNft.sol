@@ -8,7 +8,7 @@ contract BasicNft is ERC721{
     uint256 private s_tokenCounter;
     constructor() ERC721("Dog","DOG"){}
 
-    function minNft() public returns(uint256){
+    function mintNft() public returns(uint256){
         _safeMint(msg.sender,s_tokenCounter);
         s_tokenCounter = s_tokenCounter + 1;
         return s_tokenCounter;
