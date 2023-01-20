@@ -76,6 +76,7 @@ abstract contract RandomIpfsNft is
         uint256 newTokenId = s_tokenCounter;
         uint256 moddedRng = randomWords[0] % MAX_CHACSE_VALUE;
         Breed dogBreed = getBreedFromModdedRNG(moddedRng);
+        s_tokenCounter += s_tokenCounter;
         _safeMint(dogOwner, newTokenId);
         _setTokenURI(newTokenId, s_dogTokenUris[uint256(dogBreed)]);
         emit NftMinted(dogBreed, dogOwner);
